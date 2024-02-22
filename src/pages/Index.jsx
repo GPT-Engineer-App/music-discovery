@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Heading, SimpleGrid, Text, Image, VStack, HStack, IconButton, useColorModeValue, Spinner, Alert, AlertIcon } from "@chakra-ui/react";
+import { Box, Container, Heading, SimpleGrid, Text, Image, VStack, HStack, IconButton, useColorModeValue, Spinner, Alert, AlertIcon, InputGroup, Input, InputRightAddon, Button } from "@chakra-ui/react";
 import { FaHeart, FaSpotify } from "react-icons/fa";
 
 // Mock data representing new releases, in real scenario, this would be fetched from Spotify API
@@ -8,20 +8,25 @@ const mockNewReleases = [
     id: "1",
     name: "Album One",
     artist: "Artist A",
-    imageUrl: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxfHxhbGJ1bSUyMGNvdmVyfGVufDB8fHx8MTcwODYzNzgxNHww&ixlib=rb-4.0.3&q=80&w=1080',
+    imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxfHxhbGJ1bSUyMGNvdmVyfGVufDB8fHx8MTcwODYzNzgxNHww&ixlib=rb-4.0.3&q=80&w=1080",
     releaseDate: "2023-04-01",
   },
   {
     id: "2",
     name: "Song Two",
     artist: "Artist B",
-    imageUrl: 'https://images.unsplash.com/photo-1619983081593-e2ba5b543168?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwyfHxhbGJ1bSUyMGNvdmVyfGVufDB8fHx8MTcwODYzNzgxNHww&ixlib=rb-4.0.3&q=80&w=1080',
+    imageUrl: "https://images.unsplash.com/photo-1619983081593-e2ba5b543168?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwyfHxhbGJ1bSUyMGNvdmVyfGVufDB8fHx8MTcwODYzNzgxNHww&ixlib=rb-4.0.3&q=80&w=1080",
     releaseDate: "2023-04-02",
   },
   // Add more mock items as needed...
 ];
 
 const Index = () => {
+  const [apiToken, setApiToken] = useState("");
+  const handleApiTokenSubmit = () => {
+    // Logic to use the API token will be added here
+  };
+
   // State to hold the new releases (in real app this would come from an API)
   const [newReleases, setNewReleases] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +47,13 @@ const Index = () => {
 
   return (
     <Container maxW="container.xl" py={10}>
-      <VStack spacing={5}>
+      <VStack spacing={5} as="form">
+        <InputGroup>
+          <Input placeholder="Enter your Spotify API token" value={apiToken} onChange={(e) => setApiToken(e.target.value)} />
+          <InputRightAddon>
+            <Button onClick={handleApiTokenSubmit}>Set Token</Button>
+          </InputRightAddon>
+        </InputGroup>
         <Heading as="h1" size="xl" textAlign="center">
           New Releases from Artists You Follow
         </Heading>
